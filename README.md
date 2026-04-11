@@ -1,31 +1,88 @@
-# 🏨 Proyecto 7: Motor de Precios Dinámicos para Hoteles (Revenue Management)
+# Hotel Dynamic Pricing Engine — Revenue Management
 
-## Resumen del Proyecto
-Este proyecto es un **Motor de Precios Dinámicos** desarrollado en Python, diseñado para simular la toma de decisiones de **Revenue Management** en la industria hotelera. Demuestra mi comprensión de los factores que influyen en la fijación de precios (demanda, estacionalidad, eventos) y mi capacidad para construir modelos algorítmicos que optimizan los ingresos.
+## Project Overview
 
-Este proyecto es ideal para roles de **Revenue Manager**, **Business Intelligence** o **Consultor de Operaciones** en el sector de *hospitality* o viajes.
+An algorithmic **Revenue Management engine** built in Python that simulates dynamic hotel pricing decisions. Models ADR, RevPAR and occupancy optimization using six real-world pricing factors across 3 room types and generates a 60-day forward price forecast.
 
-## Habilidades Demostradas
-*   **Revenue Management:** Aplicación de conceptos clave como ADR (Average Daily Rate), RevPAR y optimización de ocupación.
-*   **Modelado de Negocio:** Creación de un modelo basado en reglas para ajustar precios en función de la demanda y eventos.
-*   **Análisis de Datos:** Uso de Python (Pandas, NumPy) para simular datos históricos y generar proyecciones.
-*   **Toma de Decisiones Algorítmica:** Implementación de lógica condicional para maximizar el ingreso potencial.
+Live dashboard: **[proyectos-personales.web.app/hotel](https://proyectos-personales.web.app/hotel)**
 
-## Estructura del Repositorio
-*   `dynamic_pricing_engine.py`: Script principal de Python que simula los datos históricos y genera el pronóstico de precios.
-*   `historical_hotel_data.csv`: Datos históricos simulados (Ocupación, ADR, RevPAR).
-*   `pricing_forecast.csv`: El resultado del motor de precios: precios sugeridos para los próximos 30 días.
-*   `pricing_forecast_sample.md`: Muestra de las primeras 10 filas del pronóstico.
-*   `README.md`: Este archivo.
+Part of Mindset & Code's data portfolio — [linkedin.com/company/mindset-codeú-027a3a120](https://linkedin.com/company/mindset-codeú-027a3a120)
 
-## Lógica del Motor de Precios
-El motor ajusta el precio base de la habitación considerando tres factores principales:
-1.  **Estacionalidad Semanal:** Aumento de precio en fines de semana (Viernes a Domingo).
-2.  **Presión de Ocupación:** Aumento de precio si la ocupación promedio reciente es alta, y reducción si es baja.
-3.  **Eventos Locales:** Ajuste al alza para simular picos de demanda por conferencias o eventos.
+---
 
-## Cómo Ejecutar
-1.  Clonar el repositorio.
-2.  Instalar las dependencias: `pip install pandas numpy`
-3.  Ejecutar el script: `python dynamic_pricing_engine.py`
-4.  Revisar el archivo `pricing_forecast.csv` para ver los precios sugeridos.
+## Skills Demonstrated
+
+- **Revenue Management:** ADR, RevPAR, occupancy pressure, lead-time pricing
+- **Business Modelling:** Rule-based algorithm combining 6 independent pricing factors
+- **Data Analysis:** Python (Pandas, NumPy) for synthetic historical data and projections
+- **Data Visualisation:** React + Recharts interactive dashboard (deployed on Firebase)
+
+---
+
+## Repository Structure
+
+```
+project-hotel-pricing-engine/
+├── dynamic_pricing_engine.py   # Main engine: historical data + forecast + JSON export
+├── data/
+│   ├── historical_hotel_data.csv   # 2 years × 3 room types (2,190 rows)
+│   ├── pricing_forecast.csv        # 60-day forecast × 3 room types (180 rows)
+│   ├── kpis.json
+│   ├── monthly_trend.json
+│   ├── revenue_by_room.json
+│   ├── occupancy_by_dow.json
+│   ├── forecast.json
+│   └── pricing_factors.json
+└── README.md
+```
+
+---
+
+## Pricing Engine Logic
+
+The engine adjusts the room base price by multiplying six independent factors:
+
+| Factor | Description |
+|--------|-------------|
+| **Base Price** | Starting price per room type (Standard $120, Deluxe $185, Suite $320) |
+| **Seasonality** | Monthly demand index (Jan 0.72 → Jul 1.35) |
+| **Day of Week** | Weekend premium (Sat ×1.25, Mon ×0.90) |
+| **Local Events** | Holidays & conferences (Jul 4th ×1.45, Dec 31st ×1.55) |
+| **Occupancy Pressure** | ×1.10 if recent occ > 85%; ×0.92 if < 60% |
+| **Lead Time** | Last-minute premium for bookings within 30 days |
+
+Final price is clipped between 70% and 220% of the base price.
+
+---
+
+## Hotel Configuration
+
+- **120 rooms** across 3 types: Standard (55%), Deluxe (32%), Suite (13%)
+- **2 years** of synthetic historical data (daily, all room types)
+- **60-day** pricing forecast with expected occupancy and RevPAR
+
+---
+
+## How to Run
+
+```bash
+pip install pandas numpy
+python dynamic_pricing_engine.py
+```
+
+Outputs CSVs and 6 JSON files to `data/`.
+
+---
+
+## Dashboard
+
+The JSON outputs power an interactive React dashboard:
+
+**[proyectos-personales.web.app/hotel](https://proyectos-personales.web.app/hotel)**
+
+Charts included:
+- 24-month ADR & RevPAR trend
+- 60-day price forecast with event markers
+- Occupancy by day of week
+- Revenue breakdown by room type
+- Pricing factor contribution chart
