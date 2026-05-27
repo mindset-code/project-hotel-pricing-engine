@@ -66,3 +66,6 @@ logs/
 # ── Datos generados (regenerables) ─────────────────
 data/historical_hotel_data.csv
 data/pricing_forecast.csv
+
+# Outputs subagentes
+.claude/progress/
