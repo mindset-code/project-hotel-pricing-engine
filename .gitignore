@@ -1,0 +1,36 @@
+# ── Archivos privados Claude / IA ──────────────────
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+agents/
+skills/
+*.skill.md
+*.agent.json
+
+# ── Credenciales y entorno ──────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# ── Python ─────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# ── Datos generados (regenerables) ─────────────────
+data/historical_hotel_data.csv
+data/pricing_forecast.csv
+
+# ── Sistema ────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+.antigravity/
