@@ -69,3 +69,6 @@ data/pricing_forecast.csv
 
 # Outputs subagentes
 .claude/progress/
+
+# Engram local memory
+.engram/

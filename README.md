@@ -1,119 +1,194 @@
 # Hotel Dynamic Pricing Engine — Revenue Management
 
-> **Revenue Management Portfolio Project** · Python · 6-factor pricing algorithm · 60-day forecast
-> **Status:** Finished · Deployed to production (2026-04)
+> **Revenue Management portfolio project** · Python · 6-factor pricing algorithm
+> **Status:** Finished · Live on portfolio
+> A dynamic pricing engine for a 120-room hotel: it generates two years of history and a 60-day forecast, setting the optimal room rate each day from six demand factors — the core logic behind hotel revenue management.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-%E2%86%92%20Open%20Dashboard-60a5fa?style=for-the-badge&logo=firebase&logoColor=white)](https://proyectos-personales.web.app/hotel)
-[![Portfolio](https://img.shields.io/badge/Portfolio-proyectos--personales.web.app-8b5cf6?style=for-the-badge&logo=firebase&logoColor=white)](https://proyectos-personales.web.app)
-[![Wiki](https://img.shields.io/badge/Wiki-Documentación-fb923c?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mindset-code/project-hotel-pricing-engine/wiki)
+> 🇬🇧 **English version first.** · 🇪🇸 **La versión en español está más abajo** → [ir a Español](#-español).
 
----
-
-## Project Status
-
-| Phase | Status |
-|---|---|
-| Pricing algorithm design (6 factors) | Done |
-| Synthetic historical data (2 years × 3 room types) | Done |
-| 60-day forward forecast | Done |
-| React dashboard deployment | Done |
-
-**Current phase:** maintenance — engine live on portfolio.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-%E2%86%92%20Open%20Dashboard-a78bfa?style=for-the-badge&logo=firebase&logoColor=white)](https://proyectos-personales.web.app/hotel)
+[![Portfolio](https://img.shields.io/badge/Portfolio-proyectos--personales.web.app-60a5fa?style=for-the-badge&logo=firebase&logoColor=white)](https://proyectos-personales.web.app)
+[![Stack](https://img.shields.io/badge/Stack-Python%20%C2%B7%20Pandas%20%C2%B7%20NumPy-3776AB?style=for-the-badge&logo=python&logoColor=white)](.)
+[![Domain](https://img.shields.io/badge/Domain-Revenue%20Management-16a34a?style=for-the-badge)](.)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 ---
 
-## Project Overview
+## The problem this solves
 
-An algorithmic **Revenue Management engine** built in Python that simulates dynamic hotel pricing decisions. Models ADR, RevPAR and occupancy optimization using six real-world pricing factors across 3 room types and generates a 60-day forward price forecast.
+A hotel room is a perishable asset: an empty room tonight is revenue lost forever. Revenue Management answers *"what price maximizes revenue for each room, each night?"* — too high and rooms sit empty, too low and money is left on the table. This engine encodes that decision as an algorithm, pricing each room type daily from six demand signals, and projects the revenue impact 60 days out.
 
-**Live dashboard → [proyectos-personales.web.app/hotel](https://proyectos-personales.web.app/hotel)**
+It demonstrates the analytical core of Revenue Management — the discipline behind airline, hotel and SaaS pricing.
 
----
-
-## Skills Demonstrated
-
-- **Revenue Management:** ADR, RevPAR, occupancy pressure, lead-time pricing
-- **Business Modelling:** Rule-based algorithm combining 6 independent pricing factors
-- **Data Analysis:** Python (Pandas, NumPy) for synthetic historical data and projections
-- **Data Visualisation:** React + Recharts interactive dashboard (deployed on Firebase)
+**▶ Live dashboard: [proyectos-personales.web.app/hotel](https://proyectos-personales.web.app/hotel)**
 
 ---
 
-## Repository Structure
+## The pricing model — 6 factors
+
+Each day, the base price of every room type is adjusted by six multiplicative factors:
+
+| Factor | Logic |
+|--------|-------|
+| **Base price** | Standard $120 · Deluxe $185 · Suite $320 |
+| **Seasonality** | Monthly index (Jan 0.72 → Jul 1.35) |
+| **Day of week** | Saturday ×1.25 · Monday ×0.90 |
+| **Local events** | Jul 4th ×1.45 · Dec 31st ×1.55 |
+| **Occupancy pressure** | >85% occ ×1.10 · <60% ×0.92 |
+| **Lead time** | Last-minute premium within 30 days |
+
+The final price is clipped to a **70%–220%** band around the base price to stay realistic. Inventory: **120 rooms** split 55% Standard / 32% Deluxe / 13% Suite.
+
+---
+
+## What it produces
+
+- **730 days of history** + a **60-day forecast** across 3 room types.
+- Revenue-management KPIs: **ADR** (Average Daily Rate), **RevPAR** (Revenue per Available Room) and **occupancy**.
+- JSON exports (`data/`) consumed by the React dashboard: KPIs, monthly trend, revenue by room, occupancy by day-of-week, forecast and the pricing-factor table.
+
+Fully reproducible (`np.random.seed(42)`).
+
+---
+
+## Tech stack
+
+| Layer | Technology |
+|-------|-----------|
+| Language | Python 3.12 |
+| Data | Pandas · NumPy |
+| Visualization | React · Recharts (dashboard) |
+| Domain | Revenue Management · Dynamic Pricing |
+
+---
+
+## Getting started
+
+```bash
+git clone https://github.com/mindset-code/project-hotel-pricing-engine.git
+cd project-hotel-pricing-engine
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+
+python dynamic_pricing_engine.py    # writes history + forecast + JSON to data/
+```
+
+---
+
+## Repository structure
 
 ```
 project-hotel-pricing-engine/
-├── dynamic_pricing_engine.py   # Main engine: historical data + forecast + JSON export
-├── data/
-│   ├── historical_hotel_data.csv   # 2 years × 3 room types (2,190 rows)
-│   ├── pricing_forecast.csv        # 60-day forecast × 3 room types (180 rows)
-│   ├── kpis.json
-│   ├── monthly_trend.json
-│   ├── revenue_by_room.json
-│   ├── occupancy_by_dow.json
-│   ├── forecast.json
-│   └── pricing_factors.json
+├── dynamic_pricing_engine.py  # pricing engine: history + forecast + JSON export
+├── data/                      # generated CSV/JSON output (JSON versioned for the dashboard)
+├── requirements.txt           # Python dependencies
+├── LICENSE                    # MIT
 └── README.md
 ```
 
 ---
 
-## Pricing Engine Logic
+## License & contact
 
-The engine adjusts the room base price by multiplying six independent factors:
+Released under the **[MIT License](LICENSE)**.
 
-| Factor | Description |
-|--------|-------------|
-| **Base Price** | Starting price per room type (Standard $120, Deluxe $185, Suite $320) |
-| **Seasonality** | Monthly demand index (Jan 0.72 → Jul 1.35) |
-| **Day of Week** | Weekend premium (Sat ×1.25, Mon ×0.90) |
-| **Local Events** | Holidays & conferences (Jul 4th ×1.45, Dec 31st ×1.55) |
-| **Occupancy Pressure** | ×1.10 if recent occ > 85%; ×0.92 if < 60% |
-| **Lead Time** | Last-minute premium for bookings within 30 days |
-
-Final price is clipped between 70% and 220% of the base price.
+- **Portfolio:** [proyectos-personales.web.app](https://proyectos-personales.web.app)
+- **LinkedIn:** [Mindset & Code](https://www.linkedin.com/company/mindset-code)
+- **Email:** contacto@mindset-code.com
 
 ---
 
-## Hotel Configuration
+# 🇪🇸 Español
 
-- **120 rooms** across 3 types: Standard (55%), Deluxe (32%), Suite (13%)
-- **2 years** of synthetic historical data (daily, all room types)
-- **60-day** pricing forecast with expected occupancy and RevPAR
+# Hotel Dynamic Pricing Engine — Revenue Management
+
+> **Proyecto de portafolio de Revenue Management** · Python · algoritmo de pricing de 6 factores
+> **Estado:** Terminado · Publicado en el portafolio
+> Motor de precios dinámicos para un hotel de 120 habitaciones: genera dos años de histórico y un forecast de 60 días, fijando la tarifa óptima cada día a partir de seis factores de demanda — la lógica central del revenue management hotelero.
+
+> 🇪🇸 Traducción al español. La versión en inglés está al inicio → [ir a English](#hotel-dynamic-pricing-engine--revenue-management).
 
 ---
 
-## How to Run
+## El problema que resuelve
+
+Una habitación de hotel es un activo perecedero: una habitación vacía esta noche es ingreso perdido para siempre. El Revenue Management responde *"¿qué precio maximiza el ingreso de cada habitación, cada noche?"* — demasiado alto y queda vacía, demasiado bajo y se deja dinero sobre la mesa. Este motor codifica esa decisión como un algoritmo, fijando el precio de cada tipo de habitación a diario a partir de seis señales de demanda, y proyecta el impacto en ingresos a 60 días.
+
+Demuestra el núcleo analítico del Revenue Management — la disciplina detrás del pricing de aerolíneas, hoteles y SaaS.
+
+**▶ Dashboard en vivo: [proyectos-personales.web.app/hotel](https://proyectos-personales.web.app/hotel)**
+
+---
+
+## El modelo de pricing — 6 factores
+
+Cada día, el precio base de cada tipo de habitación se ajusta por seis factores multiplicativos:
+
+| Factor | Lógica |
+|--------|--------|
+| **Precio base** | Standard $120 · Deluxe $185 · Suite $320 |
+| **Estacionalidad** | Índice mensual (Ene 0,72 → Jul 1,35) |
+| **Día de la semana** | Sábado ×1,25 · Lunes ×0,90 |
+| **Eventos locales** | 4-Jul ×1,45 · 31-Dic ×1,55 |
+| **Presión de ocupación** | >85% ocup ×1,10 · <60% ×0,92 |
+| **Lead time** | Premium last-minute dentro de 30 días |
+
+El precio final se acota a una banda **70%–220%** sobre el base para ser realista. Inventario: **120 habitaciones** repartidas 55% Standard / 32% Deluxe / 13% Suite.
+
+---
+
+## Qué produce
+
+- **730 días de histórico** + un **forecast de 60 días** en 3 tipos de habitación.
+- KPIs de revenue management: **ADR** (tarifa media diaria), **RevPAR** (ingreso por habitación disponible) y **ocupación**.
+- Exportaciones JSON (`data/`) que consume el dashboard React: KPIs, tendencia mensual, revenue por habitación, ocupación por día de semana, forecast y la tabla de factores.
+
+Totalmente reproducible (`np.random.seed(42)`).
+
+---
+
+## Stack técnico
+
+| Capa | Tecnología |
+|------|-----------|
+| Lenguaje | Python 3.12 |
+| Datos | Pandas · NumPy |
+| Visualización | React · Recharts (dashboard) |
+| Dominio | Revenue Management · Pricing Dinámico |
+
+---
+
+## Cómo empezar
 
 ```bash
-pip install pandas numpy
-python dynamic_pricing_engine.py
+git clone https://github.com/mindset-code/project-hotel-pricing-engine.git
+cd project-hotel-pricing-engine
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+
+python dynamic_pricing_engine.py    # genera histórico + forecast + JSON en data/
 ```
 
-Outputs CSVs and 6 JSON files to `data/`.
+---
+
+## Estructura del repositorio
+
+```
+project-hotel-pricing-engine/
+├── dynamic_pricing_engine.py  # motor de pricing: histórico + forecast + export JSON
+├── data/                      # salida CSV/JSON generada (JSON versionado para el dashboard)
+├── requirements.txt           # dependencias Python
+├── LICENSE                    # MIT
+└── README.md
+```
 
 ---
 
-## Dashboard
+## Licencia y contacto
 
-The JSON outputs power an interactive React dashboard:
+Publicado bajo la **[Licencia MIT](LICENSE)**.
 
-**[proyectos-personales.web.app/hotel](https://proyectos-personales.web.app/hotel)**
-
-Charts included:
-- 24-month ADR & RevPAR trend
-- 60-day price forecast with event markers
-- Occupancy by day of week
-- Revenue breakdown by room type
-- Pricing factor contribution chart
-
----
-
-## Links
-
-- **Live Demo:** [proyectos-personales.web.app/hotel](https://proyectos-personales.web.app/hotel)
-- **Wiki:** [Documentación técnica](https://github.com/mindset-code/project-hotel-pricing-engine/wiki)
-- **Portfolio:** [proyectos-personales.web.app](https://proyectos-personales.web.app)
+- **Portafolio:** [proyectos-personales.web.app](https://proyectos-personales.web.app)
 - **LinkedIn:** [Mindset & Code](https://www.linkedin.com/company/mindset-code)
 - **Email:** contacto@mindset-code.com
 
