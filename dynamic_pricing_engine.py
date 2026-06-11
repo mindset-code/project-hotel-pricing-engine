@@ -8,7 +8,8 @@ Run: python dynamic_pricing_engine.py
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
-import json, os
+import json
+import os
 
 np.random.seed(42)
 
@@ -142,7 +143,8 @@ if __name__ == '__main__':
         'total_rooms':   TOTAL_ROOMS,
         'forecast_days': DAYS_FORECAST,
     }
-    with open('data/kpis.json', 'w') as f: json.dump(kpis, f, indent=2)
+    with open('data/kpis.json', 'w') as f:
+        json.dump(kpis, f, indent=2)
 
     # Monthly trend (last 24 months, all room types aggregated)
     monthly = (
