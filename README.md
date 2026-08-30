@@ -12,6 +12,10 @@
 [![Domain](https://img.shields.io/badge/Domain-Revenue%20Management-16a34a?style=for-the-badge)](.)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
+[![Pricing engine running: ADR, RevPAR and occupancy with a 24-month trend](docs/captura.jpg)](https://proyectos-mindset-code.web.app/hotel)
+
+*[Open the live demo](https://proyectos-mindset-code.web.app/hotel)*
+
 ---
 
 ## The problem this solves
