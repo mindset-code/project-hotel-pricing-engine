@@ -7,7 +7,7 @@
 > 🇬🇧 **English version first.** · 🇪🇸 **La versión en español está más abajo** → [ir a Español](#-español).
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-%E2%86%92%20Open%20Dashboard-a78bfa?style=for-the-badge&logo=firebase&logoColor=white)](https://proyectos-mindset-code.web.app/hotel)
-[![Ficha del proyecto](https://img.shields.io/badge/Ficha%20del%20proyecto-mindset--code.com-2c4a6e?style=for-the-badge&logo=firefoxbrowser&logoColor=white)](https://mindset-code.com/es/codigo)
+[![Ficha del proyecto](https://img.shields.io/badge/Ficha%20del%20proyecto-mindset--code.com-2c4a6e?style=for-the-badge&logo=firefoxbrowser&logoColor=white)](https://mindset-code.com/codigo)
 [![Stack](https://img.shields.io/badge/Stack-Python%20%C2%B7%20Pandas%20%C2%B7%20NumPy-3776AB?style=for-the-badge&logo=python&logoColor=white)](.)
 [![Domain](https://img.shields.io/badge/Domain-Revenue%20Management-16a34a?style=for-the-badge)](.)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
@@ -97,7 +97,7 @@ project-hotel-pricing-engine/
 Released under the **[MIT License](LICENSE)**.
 
 - **Portfolio:** [proyectos-mindset-code.web.app](https://proyectos-mindset-code.web.app)
-- **Web:** [mindset-code.com](https://mindset-code.com/es)
+- **Web:** [mindset-code.com](https://mindset-code.com)
 - **Email:** contacto@mindset-code.com
 
 ---
@@ -193,9 +193,9 @@ project-hotel-pricing-engine/
 Publicado bajo la **[Licencia MIT](LICENSE)**.
 
 - **Portafolio:** [proyectos-mindset-code.web.app](https://proyectos-mindset-code.web.app)
-- **Web:** [mindset-code.com](https://mindset-code.com/es)
+- **Web:** [mindset-code.com](https://mindset-code.com)
 - **Email:** contacto@mindset-code.com
 
 ---
 
-*Mindset & Code · asesoría fiscal y tecnológica · [mindset-code.com](https://mindset-code.com/es)*
+*Mindset & Code · asesoría fiscal y tecnológica · [mindset-code.com](https://mindset-code.com)*
